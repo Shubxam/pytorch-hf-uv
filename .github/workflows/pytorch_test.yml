@@ -25,5 +25,5 @@ jobs:
     - name: Verify PyTorch installation
       run: |
         source ./.venv/bin/activate
-        python3 -c "import torch; print(torch.__version__)"
+        echo 'import torch; print(torch.__version__)' | uv run -
         
