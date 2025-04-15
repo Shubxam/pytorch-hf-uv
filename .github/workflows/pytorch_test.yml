@@ -1,0 +1,34 @@
+name: Manual Sentiment Analysis Test
+
+on:
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  run-sentiment-test:
+    runs-on: ubuntu-latest
+    env:
+        python_version: "3.13"
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: install latest uv version
+      uses: astral-sh/setup-uv@v5
+      with:
+        version: "latest"
+        enable-cache: true
+        cache-dependency-glob: "**/pyproject.toml"
+        python-version: ${{ env.python_version }}`
+
+    - name: Install dependencies
+      run: uv sync
+
+    - name: Install PyTorch
+      run: pip3 install torch --index-url https://download.pytorch.org/whl/cpu
+
+    - name: Verify PyTorch installation
+      run: |
+        source ./.venv/bin/activate
+        python3 -c "import torch; print(torch.__version__)"
+        
