@@ -17,11 +17,8 @@ jobs:
     - name: Install dependencies
       run: uv sync
 
-    - name: Install PyTorch
+    - name: Verify PyTorch installation
       run: |
         source ./.venv/bin/activate
-        pip3 install torch --index-url https://download.pytorch.org/whl/cpu
-
-    - name: Verify PyTorch installation
-      run: python3 -c "import torch; print(torch.__version__)"
+        python3 -c "import torch; print(torch.__version__)"
         
